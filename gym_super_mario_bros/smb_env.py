@@ -139,7 +139,7 @@ class SuperMarioBrosEnv(NESEnv):
     def _x_position(self):
         """Return the current horizontal position."""
         # add the current page 0x6d to the current x
-        return self.ram[0x6d] * 0x100 + self.ram[0x86]
+        return int(self.ram[0x6d]) * 0x100 + int(self.ram[0x86])
 
     @property
     def _left_x_position(self):
@@ -366,19 +366,20 @@ class SuperMarioBrosEnv(NESEnv):
         self._time_last = self._time
         self._x_position_last = self._x_position
 
-    def _did_step(self, done):
+    def _did_step(self, terminated, truncated):
         """
         Handle any RAM hacking after a step occurs.
 
         Args:
-            done: whether the done flag is set to true
+            terminated: whether the `terminated` flag is set to true
+            truncated: whether the `truncated` flag is set to true
 
         Returns:
             None
 
         """
         # if done flag is set a reset is incoming anyway, ignore any hacking
-        if done:
+        if terminated or truncated:
             return
         # if mario is dying, then cut to the chase and kill hi,
         if self._is_dying:

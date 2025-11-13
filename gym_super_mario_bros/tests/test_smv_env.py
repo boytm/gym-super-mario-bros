@@ -1,6 +1,6 @@
 """Test cases for the Super Mario Bros meta environment."""
 from unittest import TestCase
-from ..smb_env import SuperMarioBrosEnv
+from gym_super_mario_bros.smb_env import SuperMarioBrosEnv
 
 
 class ShouldRaiseErrorOnInvalidRomMode(TestCase):
@@ -58,7 +58,7 @@ class ShouldStepGameEnv(TestCase):
         self.assertIsNone(env.unwrapped._target_stage)
         self.assertIsNone(env.unwrapped._target_area)
         env.reset()
-        s, r, d, i = env.step(0)
+        s, r, terminated, truncated, i = env.step(0)
         self.assertEqual(0, i['coins'])
         self.assertEqual(False, i['flag_get'])
         self.assertEqual(2, i['life'])
@@ -78,7 +78,7 @@ class ShouldStepStageEnv(TestCase):
         self.assertIsInstance(env.unwrapped._target_stage, int)
         self.assertIsInstance(env.unwrapped._target_area, int)
         env.reset()
-        s, r, d, i = env.step(0)
+        s, r, terminated, truncated, i = env.step(0)
         self.assertEqual(0, i['coins'])
         self.assertEqual(False, i['flag_get'])
         self.assertEqual(2, i['life'])

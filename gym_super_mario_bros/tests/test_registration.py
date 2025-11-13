@@ -1,6 +1,6 @@
 """Test cases for the gym registered environments."""
 from unittest import TestCase
-from .._registration import make
+from gym_super_mario_bros._registration import make
 
 
 class ShouldMakeEnv:
@@ -34,7 +34,7 @@ class ShouldMakeEnv:
         else:
             env = make(env_id)
         env.reset(seed=self.seed)
-        s, r, d, i = env.step(0)
+        s, r, terminated, truncated, i = env.step(0)
         self.assertEqual(self.coins, i['coins'])
         self.assertEqual(self.flag_get, i['flag_get'])
         self.assertEqual(self.life, i['life'])
@@ -64,9 +64,9 @@ class ShouldMakeSuperMarioBrosRandomStages(ShouldMakeEnv, TestCase):
     # the amount of time left
     time = 300
     # the current world
-    world = 6
+    world = 4
     # the current stage
-    stage = 4
+    stage = 3
     # the environments ID for all versions of Super Mario Bros
     env_id = ['SuperMarioBrosRandomStages-v{}'.format(v) for v in range(4)]
 

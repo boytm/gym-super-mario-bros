@@ -1,5 +1,5 @@
 """Registration code of Gym environments in this package."""
-import gym
+import gymnasium as gym
 
 
 def _register_mario_env(id, is_random=False, **kwargs):
@@ -23,7 +23,7 @@ def _register_mario_env(id, is_random=False, **kwargs):
         # set the entry point to the standard Super Mario Bros. environment
         entry_point = 'gym_super_mario_bros:SuperMarioBrosEnv'
     # register the environment
-    gym.envs.registration.register(
+    gym.register(
         id=id,
         entry_point=entry_point,
         max_episode_steps=9999999,
@@ -65,7 +65,7 @@ def _register_mario_stage_env(id, **kwargs):
 
     """
     # register the environment
-    gym.envs.registration.register(
+    gym.register(
         id=id,
         entry_point='gym_super_mario_bros:SuperMarioBrosEnv',
         max_episode_steps=9999999,
